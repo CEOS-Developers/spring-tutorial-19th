@@ -125,11 +125,22 @@ public class BeanFactory {
 직접 등록하는 경우도 있지만, 대부분 Componenet Scan으로 커버된다.
 
 ### 1. Componenet Scan
-- **@Component** 애노테이션이 있으면 스프링 빈으로 자동 등록된다.
-- **@Component**를 포함하는 다음 애노테이션도 스프링 빈으로 자동 등록된다.
+- **@Component** 어노테이션이 있으면 스프링 빈으로 자동 등록된다.
+- **@Component**를 포함하는 다음 어노테이션도 스프링 빈으로 자동 등록된다.
     - **@Controller**
     - **@Service**
     - **@Repository** 
+
+```java
+@Controller // <- 이렇게 annotation 붙이면 자동 등록
+public class Controller {
+    private Service service;
+
+    public Controller(Service service) {
+        this.servcie = service;
+    }
+}
+```
 
 ### 2. 직접 등록
 - **@Configuration** 어노테이션으로 설정 파일에 등록
