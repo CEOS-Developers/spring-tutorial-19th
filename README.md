@@ -114,13 +114,65 @@ public class BeanFactory {
 - Controller 코드에서 constructor로 Service 연결 부분 작성하고 **@Autowired**로 스프링이 연결 관리.
     - **Issue**: 이 때 Service가 Spring에 의해 관리되지 않는 순수한 Java class라면 에러가 발생한다.
     - **Solve**: Service와 Reposisory도 각각 어노테이션(@)으로 스프링 bean 등록.
-- DI에는 필드 주입, setter 주입, 생성자 주입 3가지 방법이 있다.
+- DI에는 필드 주입, setter 주입, 생성자 주입 [3가지 방법](https://ceos19th.notion.site/7e4ac16678c44de4a6035bf799a786ae)이 있다.
 - 의존관계가 실행중에 동적으로 변하는 경우는 거의 없으므로 생성자 주입을 권장한다.
 - 실무에서는 주로 정형화된 컨트롤러, 서비스, 리포지토리 같은 코드는 컴포넌트 스캔을 사용한다.
 - 정형화 되지 않거나, 상황에 따라 구현 클래스를 변경해야 하면 설정을 통해 스프링 빈으로 등록한다.
     - ex. 비즈니스 로직만 있을 때
 
-## IoC
+## 그럼 Spring Bean은 어떻게 등록하죠?
+크게 2가지 방법이 있다. 하나는 **직접 등록**하는 것이고, 하나는 **Componenet Scan**이다.
+직접 등록하는 경우도 있지만, 대부분 Componenet Scan으로 커버된다.
+
+### 1. Componenet Scan
+- **@Component** 애노테이션이 있으면 스프링 빈으로 자동 등록된다.
+- **@Component**를 포함하는 다음 애노테이션도 스프링 빈으로 자동 등록된다.
+    - **@Controller**
+    - **@Service**
+    - **@Repository** 
+
+### 2. 직접 등록
+- **@Configuration** 어노테이션으로 설정 파일에 등록
+
+```java
+package hello.hellospring; 
+
+import hello.hellospring.repository.MemberRepository;
+import hello.hellospring.repository.MemoryMemberRepository;
+import hello.hellospring.service.MemberService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SpringConfig {
+    @Bean
+        public MemberService memberService() {
+        return new MemberService(memberRepository());
+    }
+    @Bean
+        public MemberRepository memberRepository() {
+        return new MemoryMemberRepository();
+    }
+}
+```
+
+## Bean Life Cycle
+그럼 Bean은 어떻게 Spring에서 동작하는가?
+
+<div align="center">
+  <img src="imgs/bean_life_cycle.png" alt="drawing" width=500"/>
+</div>
+
+Bean 생성 및 소멸시 다양한 콜백이 있지만 일단,
+**Spring이 시작시 Bean들이 생성 및 등록되어서 사용(DI)된 후 Spring이 종료되기 전에 소멸된다.**
+정도로 이해하면 충분하다.
+
+## IoC: Inversion of Control
+제어의 역전 역시 어렵지 않다.
+- 우리(개발자)가 일일이 객체를 생성하고 언제 종료할지 정하지 않아도 된다.
+  - Spring이 알아서 Bean life cycle 관리해주고 Componenet들도 DI로 관리
+  - Spring 철학대로만 개발하면 객체들은 Spring이 관리해준다.
+  - 제어를 일일이 우리가 하지 않아도 되네? == 제어의 역전
 
 ## AOP
 
