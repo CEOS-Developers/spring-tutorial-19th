@@ -77,6 +77,7 @@ public class Controller {
   
   -> 그것도 Spring으로 관리해보자.
 
+### Bean
 - 어플리케이션 실행 시점에 필요한 객체(**Bean**)을 생성하고, 의존성이 있는 두 객체를 연결하기 위해 한 객체를 다른 객체로 주입시킨다.
   
   *Bean : Spring이 관리하는 객체
@@ -99,12 +100,12 @@ public class BeanFactory {
   
   (클래스마다 생성, 주입이 있는 것이 아니라, Bean들의 연결을 관리하는 클래스 하나에서 생성, 주입을 전부 확인할 수 있다.)
 
-## Code에서의 적용
+### Code에서의 적용
 
 - @Controller 어노테이션이 있으면, 스프링 컨테이너가 해당 클래스를 bean으로 관리한다.
 - service, repository  등은 하나만 생성해서 공통으로 가져다 쓰면 된다(new로 새로 만들 필요 없다).
 
-### 정리하면: 의존성 주입이란?
+## 정리하면: 의존성 주입이란?
 - 외부에서 두 객체 간의 관계를 결정해주는 디자인 패턴
 - 인터페이스를 사이에 둬서, 클래스 레벨에서는 의존관계가 고정되지 않도록 하고 런타임 시에 관계를 동적으로 주입
   
@@ -125,7 +126,7 @@ public class BeanFactory {
 직접 등록하는 경우도 있지만, 대부분 Componenet Scan으로 커버된다.
 
 ### 1. Componenet Scan
-- **@Component** 어노테이션이 있으면 스프링 빈으로 자동 등록된다.
+- **@Component** 어노테이션이 있으면 Spring이 시작될 때 스프링 빈으로 자동 등록된다.
 - **@Component**를 포함하는 다음 어노테이션도 스프링 빈으로 자동 등록된다.
     - **@Controller**
     - **@Service**
@@ -141,6 +142,10 @@ public class Controller {
     }
 }
 ```
+### Annotation 이란?
+- 메타 데이타이기 때문에 비즈니스 로직에 직접적인 영향을 주지 않는다.
+- but, 이 메타데이터 정보에 따라서 실행 흐름을 변경할 수 있는 코딩이 가능하여 단지 어노테이션 추가만으로 더 깔끔한 코딩이 가능하다.
+- Java가 기본 제공하는 @Override 등과 같이 **"@"**로 선언할 수 있으며, Custom annotation도 만들 수 있다.
 
 ### 2. 직접 등록
 - **@Configuration** 어노테이션으로 설정 파일에 등록
@@ -260,11 +265,11 @@ public class TimeTraceAop {
 
 ## PSA
 
-## Spring Bean
-
-## Annotation
-
 ## Unit Test & Integration Test
 
 
 
+
+## References
+- [Component Scan](https://velog.io/@hyun-jii/%EC%8A%A4%ED%94%84%EB%A7%81-component-scan-%EA%B0%9C%EB%85%90-%EB%B0%8F-%EB%8F%99%EC%9E%91-%EA%B3%BC%EC%A0%95)
+- [Annotation](https://advenoh.tistory.com/21)
