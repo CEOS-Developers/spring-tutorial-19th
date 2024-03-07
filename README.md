@@ -185,7 +185,78 @@ Bean 생성 및 소멸시 다양한 콜백이 있지만 일단,
   - Spring 철학대로만 개발하면 객체들은 Spring이 관리해준다.
   - 제어를 일일이 우리가 하지 않아도 되네? == 제어의 역전
 
-## AOP
+## AOP: Aspect Oriented Programming
+
+**AOP가 필요한 상황?**
+- if, 모든 메소드의 호출 시간을 측정하고 싶다면?
+- 공통 관심 사항(cross-cutting concern) vs 핵심 관심 사항(core concern)
+- 회원 가입 시간, 회원 조회 시간을 측정하고 싶다면?  
+
+  -> 비슷한 기능이어도 회원 가입, 회원 조회마다 새로운 측정 기능을 부착해야 함(중복성)
+
+<div align="center">
+  <img src="imgs/aop_1.png" alt="drawing" width=500"/>
+</div>
+
+- 시간 측정 로직을 각 Component마다 집어넣었는데, 측정 단위를 수정해야 한다면?
+  ex) s -> ms
+
+  -> 일일이 Component마다 변경해야 함(번거로움)
+  
+**Problems**
+- 회원가입, 회원 조회에 시간을 측정하는 기능은 **핵심 관심 사항이 아니다.**
+- 시간을 측정하는 로직은 **공통 관심 사항**이다.
+- 시간을 측정하는 로직과 핵심 비즈니스의 로직이 섞여서 **유지보수가 어렵다.**
+- 시간을 측정하는 로직을 **별도의 공통 로직으로 만들기 매우 어렵다.**
+- 시간을 측정하는 로직을 변경할 때 **모든 로직을 찾아가면서 변경해야 한다.**
+
+**Solve**
+
+공통 관심 사항(cross-cutting concern) & 핵심 관심 사항(core concern) 분리해 보자
+
+<div align="center">
+  <img src="imgs/aop_2.png" alt="drawing" width=500"/>
+</div>
+
+- 회원가입, 회원 조회등 핵심 관심사항과 시간을 측정하는 공통 관심 사항을 분리한다.
+- 시간을 측정하는 로직을 별도의 공통 로직으로 만들었다.
+- 핵심 관심 사항을 깔끔하게 유지할 수 있다.
+- 변경이 필요하면 이 로직만 변경하면 된다.
+- 원하는 적용 대상을 선택할 수 있다.
+
+### AOP Code Example(Time Trace)
+
+```java
+@Aspect // <- AOP 등록 annotation
+@Component
+public class TimeTraceAop {
+
+    @Around("execution(* hello.hellospring..*(..))")  // <- 적용 범위 설정
+    public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
+        long start = System.currentTimeMillis();
+        System.out.println("START: " + joinPoint.toString());
+
+        try {
+            return joinPoint.proceed();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("END: " + joinPoint.toString() + " " + timeMs +
+                    "ms");
+        }
+    }
+}
+```
+- **@Aspect** 어노테이션으로 등록
+- Component Scan(**@Component**)으로 등록할 수도 있지만 Spring Config에 스프링 Bean 등록하는 것이 더 적합하다.
+- **@Around** 어노테이션으로 Aspect(공통 관심 사항) 로직 적용할 경로 지정
+
+<div align="center">
+  <img src="imgs/aop_3.png" alt="drawing" width=500"/>
+</div>
+
+- 내부 동작 원리는 Proxy를 이용한다.
+
 
 ## PSA
 
