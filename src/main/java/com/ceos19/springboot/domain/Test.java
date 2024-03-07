@@ -1,4 +1,4 @@
-package com.ceos19.springboot;
+package com.ceos19.springboot.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

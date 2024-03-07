@@ -1,5 +1,7 @@
-package com.ceos19.springboot;
+package com.ceos19.springboot.service;
 
+import com.ceos19.springboot.domain.Test;
+import com.ceos19.springboot.repository.TestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

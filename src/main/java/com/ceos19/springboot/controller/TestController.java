@@ -1,5 +1,6 @@
-package com.ceos19.springboot;
+package com.ceos19.springboot.controller;
 
+import com.ceos19.springboot.domain.Test;
 import com.ceos19.springboot.service.TestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
