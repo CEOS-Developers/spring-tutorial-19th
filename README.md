@@ -333,6 +333,34 @@ class MemberServiceIntegrationTest {
 }
 ```
 
+## PSA: Portable Service Abstraction
+위 단락에서 @Transactional 어노테이션을 이용하여 별도 코드 없이 DB를 롤백할 수 있음을 배웠다.
+여기에 우리가 간과하고 있던 사실이 있다.
+- @Transactional 어노테이션을 선언하는 것 만으로 별도의 코드 추가 없이 트랜잭션 서비스를 사용할 수 있다는 사실
+- 내부적으로 트랜잭션 코드가 추상화되어 숨겨져 있다.
+
+이렇게 추상화 계층을 사용하여 어떤 기술을 내부에 숨기고 개발자에게 편의성을 제공해주는 것이 **서비스 추상화: SA(Service Abstraction)** 이다.
+
+### Example: @Tranactional
+DB에 접근하는 방법은 여러가지가 있다.
+
+- JDBC
+- JPA(ORM)
+- etc.
+
+어떠한 경우라도 @Transactional 어노테이션을 이용하면 트랜잭션을 유지하는 기능을 추가할 수 있다.
+
+이렇게 하나의 추상화로 여러 서비스를 묶어둔 것을 Spring에서 **Portable Service Abstraction**이라고 한다.
+
+### How @Transactional works
+- 어떻게 DB 접근 방식이 변경되어도 Transactional을 사용할 수 있지?
+
+<div align="center">
+  <img src="imgs/psa.png" alt="drawing" width=600"/>
+</div>
+
+
+Spring의 @Transactional은 각 TransactionManager를 각각 구현하고 있는 것이 아니라 최상위 PlatformTransactionManager를 이용하고 필요한 TransactionManager를 DI로 주입받아 사용함을 알 수 있다.
 
 
 ## References
