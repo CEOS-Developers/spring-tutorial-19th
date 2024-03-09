@@ -1,8 +1,6 @@
 # spring-tutorial-19th
 CEOS 19th BE Study - Spring Tutorial
 
-### 3️⃣ Spring Bean 이 무엇이고, Bean 의 라이프사이클은 어떻게 되는지 조사해요
-
 ### 4️⃣ 스프링 어노테이션을 심층 분석해요
 
 - 어노테이션이란 무엇이며, Java에서 어떻게 구현될까요?
@@ -113,7 +111,13 @@ POJO를 기반으로 작성한 어플리케이션 로직 코드에 스프링의 
    3. **Bean 라이프 사이클 관리**   
         Bean의 생성과 소멸을 관리하고, 각 시점마다 콜백 메서드를 제공한다.
    4. **어플리케이션 설정 관리**   
-        설정값은 xml, java class, 어노테이션 등의 방법으로 적용할 수 있다. 
+        설정값은 xml, java class, 어노테이션 등의 방법으로 적용할 수 있다.
+
+   <br/><br/>
+   스프링에서는 IoC 컨테이너를 `ApplicationContext` 인터페이스를 구현한 클래스를 사용하여 만든다.   
+   (`BeanFactory`를 이용하는 경우도 있다.    
+    `BeanFactory`는 `ApplicationContext` 의 상위 인터페이스로 부가 기능을 제외하고 `Bean` 관리 핵심 기능만을 가진 인터페이스다.)      
+   이 클래스를 이용해 구현한 IoC 컨테이너를 `스프링 컨테이너` 라고 부른다.
 
 
 2. **의존성 주입 (DI: Dependency Injection)**   
@@ -324,10 +328,48 @@ POJO를 기반으로 작성한 어플리케이션 로직 코드에 스프링의 
     여기에 더해, 스프링은 어떤 데이터베이스를 사용하더라도 JDBC라는 하나의 인터페이스로 Oracle, MySQL과 같은 여러 데이터베이스와 소통할 수 있다.<br/><br/>
     이렇게 하나의 추상화로 여러 서비스를 묶어 사용가능하도록 편의를 제공하는 것을 Portable Service Abstraction 이라고 한다.
 
+## Spring Bean과 Bean의 Life Cycle
+
+### Spring Bean
+`Spring Bean`은 어플리케이션의 핵심을 구성하면서 **스프링 컨테이너가 관리하는 자바 객체**를 의미한다.   
+`스프링 컨테이너`가 자바 객체를 관리하기 위해서는 단순 객체 정보 이외에도 몇가지 정보가 더 필요하다.    
+그래서 `Bean`을 등록할 때는 이 정보들을 `스프링 컨테이너`에 추가적으로 알려주어야 한다.
+
+이 추가적인 정보는 `스프링 컨테이너`를 생성할 때 `AppConfig class`, `xml` 등의 방법을 통해 전달한다.   
+그러면 `스프링 컨테이너`가 생성될 때 해당 정보를 토대로 `Bean`을 컨테이너에 등록한다.    
+그리고 `Bean`이 가져야 할 정보를 기술한 인터페이스가 `Bean Definition` 이다.
+
+![img.png](README_IMG/img3.png)
+
+즉, `스프링 컨테이너`를 생성하려면, 각 `Bean`이 가져야 하는 정보를 나타내는 `BeanDefinition`이 필요하고,   
+`BeanDefinition`형식에 맞게 실제로 넣을 정보는 `AppConfig.class`, `xml` 등의 방법으로 넣으면 된다. 
+
+`Bean`을 등록할 때 필요한 정보는 크게 `bean name` 과 `bean object` 가 있다.   
+마치 교실에서 학생들을 관리하기 위해 출석부에 이름을 적어두는 것처럼, `스프링 컨테이너`는 `bean object`가 가진 이름을 이용하여 관리한다.   
+따라서 `bean name`은 중복되지 않게 지어야 한다.
+ 
+### Bean LifeCycle
+`Bean`은 `스프링 컨테이너`에 의해 생성, 주입, 소멸된다.   
+따라서 각 빈은 생성될 때부터 소멸될 때까지 하나의 Life Cycle을 가지게 된다.   
+
+```
+스프링 컨테이너 생성 → 스프링 빈 생성 → 의존 관계 주입 → 초기화 콜백 → 사용 → 소멸 전 콜백 → 스프링 종료
+```
+
+여기에서 `스프링 빈 생성 → 의존 관계 주입` 단계는 구분 되어있지만, 만약 생성자를 이용해 의존관계를 주입하는 경우, 하나의 단계로 진행된다.   
+
+초기화 콜백, 소멸 전 콜백을 등록하는 방법은 크게 3가지가 있다.
+1. 콜백 인터페이스를 상속하여 Bean 클래스 작성
+2. 설정 정보에 초기화 콜백과 소멸 전 콜백을 등록
+3. Bean 클래스 내에서 어노테이션을 사용하여 콜백 메서드 작성
+ 
+
 
 ## 참고자료
-https://spring.io/why-spring
-https://docs.spring.io/spring-framework/reference/core/beans/introduction.html
-https://docs.spring.io/spring-framework/reference/core/aop/introduction-defn.html
-https://youtu.be/hjDSKhyYK14?si=EWpV-_ZJ4q9wcVaX
-https://sabarada.tistory.com/127
+https://spring.io/why-spring   
+https://docs.spring.io/spring-framework/reference/core/beans/introduction.html   
+https://docs.spring.io/spring-framework/reference/core/aop/introduction-defn.html   
+https://youtu.be/hjDSKhyYK14?si=EWpV-_ZJ4q9wcVaX   
+https://sabarada.tistory.com/127    
+https://drcode-devblog.tistory.com/334   
+https://dev-coco.tistory.com/170   
