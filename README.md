@@ -16,7 +16,7 @@ _제어의 역전_ 은 _**객체들간의 관계 및 호출을 개발자가 아�
 
 하지만 Ioc 를 통한다면 **프레임워크가 프로그램의 흐름을 통제하고 사용자가 작성한 코드를 호출**한다.
 
-
+이 IoC 는 DI
 
 
 
@@ -31,7 +31,7 @@ _제어의 역전_ 은 _**객체들간의 관계 및 호출을 개발자가 아�
 예를 들어서 **매개변수나 리턴값으로 다른 객체에 영향을 미치거나 받는 것을 의존성**이라고 한다.
 특정 객체가 변할 경우 그 변경의 영향이 다른 객체에게 많은 영향을 준다면 **의존성이 높다**라고 한다.
 
-
+그렇다면 의존성 주입이란 말 그대로
 
 ### Ioc/DI 예제
 
@@ -312,11 +312,18 @@ public class ReviewService {
 
 실제로 디버깅을 통해 스프링 빈이 생성되고 의존관계가 주입되는 것을 확인할 수 있다.
 
-<스프링 빈 생성 이후 호출>
-![](https://velog.velcdn.com/images/dionisos198/post/8a14b1ff-e39b-4c78-ae7d-be23eb17c9eb/image.png)
+<스프링 빈 생성:ALoginServiceImpl>
+![](https://velog.velcdn.com/images/dionisos198/post/306b9d0a-e00d-4502-ac2d-513fb827649b/image.png)
 
-이후 의존관계 주입
-![](https://velog.velcdn.com/images/dionisos198/post/7cf91077-5248-43ac-886e-b09a476cef3e/image.png)
+
+<의존관계 주입>
+![](https://velog.velcdn.com/images/dionisos198/post/4846b819-e20c-4331-b631-0e150c99a123/image.png)
+
+
+<초기화 콜백 메서드 호출>
+![](https://velog.velcdn.com/images/dionisos198/post/9b9139fe-4c4c-4d10-87ab-54615d66c044/image.png)
+
+
 
 
 > ## 스프링 어노테이션 분석
@@ -473,6 +480,9 @@ public @interface SpringBootApplication {
 <li>운영 환경과 유사한 테스트를 작성할 수 있다</li>
 
 <li>테스트 단위가 커서 디버깅이 어려울 수 있다</li>
+
+
+
 
 
 
