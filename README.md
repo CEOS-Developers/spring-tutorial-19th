@@ -1,12 +1,6 @@
 # spring-tutorial-19th
 CEOS 19th BE Study - Spring Tutorial
 
-### 4️⃣ 스프링 어노테이션을 심층 분석해요
-
-- 어노테이션이란 무엇이며, Java에서 어떻게 구현될까요?
-- 스프링에서 어노테이션을 통해 Bean을 등록할 때, 어떤 일련의 과정이 일어나는지 탐구해보세요.
-- `@ComponentScan` 과 같은 어노테이션을 사용하여 스프링이 컴포넌트를 어떻게 탐색하고 찾는지의 과정을 깊게 파헤쳐보세요.
-
 ### 5️⃣ **단위 테스트와 통합 테스트 탐구**
 
 - 단위 테스트와 통합 테스트의 의미를 알아봅시다!
@@ -363,7 +357,80 @@ POJO를 기반으로 작성한 어플리케이션 로직 코드에 스프링의 
 2. 설정 정보에 초기화 콜백과 소멸 전 콜백을 등록
 3. Bean 클래스 내에서 어노테이션을 사용하여 콜백 메서드 작성
  
+## 스프링 어노테이션
+### 자바 어노테이션
+어노테이션은 소스코드에 메타데이터를 삽입하는 것으로, 일종의 부가정보를 표시하는 **라벨**과 같다.   
+예를 들어 `Apple` 클래스에 `@CanSale` 어노테이션을 달아주었다고 해보자.  
+```java
+@CanSale
+public class Apple {
+    ...
+}
+```
+이렇게 라벨링을 해둔 뒤, 나중에 상품 판매 로직에서 `@CanSale` 어노테이션이 붙은 클래스만 판매가능하게 하는 로직을 넣을 수 있다.
 
+어노테이션은 어디에 붙일지 정하는 `Target`과 언제까지 붙일지 정하는 `Retention` 에 대한 정보를 갖고 있다.   
+`Retention`을 이용하여 컴파일타임까지만 붙일지, 자바 리플렉션을 이용하여 런타임까지 붙일지 등을 정할 수 있다.   
+어노테이션을 이용하면 AOP를 조금 더 쉽게 구현할 수 있다.
+
+자바의 어노테이션에는 크게 3가지가 있다.
+
+1. 표준 어노테이션
+    자바에서 기본적으로 제공하는 어노테이션으로 `@Overide`, `@Deprecated`, `@SuppressWarning` 이 있다.
+2. 메타 어노테이션
+    커스텀 어노테이션을 만들 때 사용하는 어노테이션 (어노테이션을 위한 어노테이션) 으로
+    `Target`, `Retention`, `@Documented`, `@Inherited`, `@Repeatable` 등이 있다. 
+3. 커스텀 어노테이션
+    ```java
+   @interface AnnotationName {
+        DataType dataName();
+        DataType2 dataName2() default defaultValue;
+   }
+   ```
+   
+    위와 같은 형식으로 생성할 수 있다.
+    어노테이션을 붙일 때는 어노테이션 괄호로 넘길 데이터를 명시하여 넘겨준다.      
+    어노테이션 내 data가 1개라면 이름을 명시하지 않아도 된다.
+    ```java
+   @AnnotationName(dataName=data)
+   class X {
+        ...
+   }
+   ```
+
+### 어노테이션을 사용한 Bean 등록
+빈을 등록하는 방법에는 2가지가 있다.
+1. @Configuration, @Bean
+    빈으로 등록할 메서드를 `@Bean` 어노테이션과 함께 기술하여, `@Configuration` 어노테이션이 붙은 설정 파일에 기술한다.
+    ```java
+    @Configuration
+    public class AppConfig {
+    
+        @Bean
+        public MemberService memberService() {
+            return new MemberServiceImpl(memberRepository());
+        }
+    
+        @Bean
+        public OrderService orderService() {
+            return new OrderServiceImpl(memberRepository(), discountPolicy());
+        }
+    
+        @Bean
+        public MemberRepository memberRepository() {
+            return new MemoryMemberRepository();
+        }
+    }
+   ```
+2. @Component, @ComponentScan       
+    하지만 이렇게 설정 파일을 사용하여 빈을 등록하면 빈으로 등록하고 싶은 클래스가 생길 때마다 매번 추가해주어야 한다.   
+    이를 좀 더 편리하게 할 수 있는 수단으로 Component Scan 이 있다.
+
+    `@ComponentScan` 어노테이션을 `@Configuration` 어노테이션이 붙은 설정 파일에 추가해준다.   
+    `@ConmenentScan` 이 붙으면 해당 설정파일을 이용해 스프링 컨테이너가 생성될 때 `@Component` 어노테이션이 붙은 클래스를 모두 찾아 `Bean`으로서 등록해준다.   
+    이때 탐색의 범위는 기본값으로 `@ComponentScan` 을 붙인 설정 파일이 존재하는 패키지가 시작위치가 되어, 해당 패키지의 모든 클래스를 탐색하게 된다.   
+
+    또한 `@ComponentScan`은 스프링 부트에서는 `@SpringBootApplication` 어노테이션을 통해 수행된다.
 
 ## 참고자료
 https://spring.io/why-spring   
@@ -373,3 +440,4 @@ https://youtu.be/hjDSKhyYK14?si=EWpV-_ZJ4q9wcVaX
 https://sabarada.tistory.com/127    
 https://drcode-devblog.tistory.com/334   
 https://dev-coco.tistory.com/170   
+https://www.nextree.co.kr/p5864/
