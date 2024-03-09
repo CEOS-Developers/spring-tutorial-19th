@@ -214,3 +214,35 @@ Hibernate를 사용하는 HibernateTransactionManager를 유연하게 바꿔서 
 스프링은 이렇게 특정 기술에 직접적 영향을 받지 않게끔 객체를 POJO 기반으로 한번씩 더 추상화한 Layer를 갖고 있으며,
 이를통해 일관성있는 Servic Abstraction(서비스 추상화)를 만들어 냅니다.
 덕분에 코드는 더 견고해지고 기술이 바뀌어도 유연하게 대처할 수 있게 됩니다.
+
+# AOP(Aspect-oriented Programming)
+AOP란 관점 지향 프로그래밍이라고도 부릅니다. 
+관점 지향이란 쉽게 말해 어떤 로직을 기준으로 핵심적인 관점, 부가적인 관점으로 나누어서 보고 그 관점을 기준으로 각각 모듈화하겠다는 것입니다.
+즉 AOP는 프로그램 구조에 대한 또 다른 사고 방식을 제공하여 객체 지향 프로그래밍(OOP)을 보완합니다.
+
+### AOP는 언제 사용할까요?
+- 로깅
+- 성능 분석
+- 예외 처리
+- 메서드 호출 시간 측정
+- 공통 관심 사항과 핵심 관심 사항 분리
+
+## AOP 적용
+```java
+@Component
+@Aspect
+public class TimeTraceAop {
+		@Around("execution(* hello.hellospring..*(..))")
+    public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
+		    long start = System.currentTimeMillis();
+        System.out.println("START: " + joinPoint.toString());
+        try {
+		        return joinPoint.proceed();
+		    } finally {
+				    long finish = System.currentTimeMillis();
+				    long timeMs = finish - start;
+				    System.out.println("END: " + joinPoint.toString()+ " " + timeMs + "ms");
+				}
+		}
+}
+```
