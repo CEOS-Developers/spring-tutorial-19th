@@ -43,3 +43,62 @@ public class PhoenStore {
 - 다양한 구현 간 전환을 더 쉽게 만듭니다.
 - 프로그램의 모듈성 향상
 - 컴포넌트를 격리하거나 해당 종속성을 mocking하고 컴포넌트가 프로그램을 더욱 쉽게 테스트할 수 있습니다.
+
+# DI(Dependency Injection)
+DI는 의존성 주입이라 하고, IoC를 구현하는 데 사용할 수 있는 패턴입니다. 
+객체를 다른 객체와 연결하거나 객체를 다른 객체에 주입하는 것은 객체 자체가 아닌 어셈블러에 의해 수행됩니다. 
+쉽게 말하면 의존성을 외부에서 결정하고 주입하는 것이 DI입니다.
+
+# DI 방법
+## 생성자 주입
+```java
+public class PhoenStore {
+		private Phone phone;
+		
+		public PhoneStore(Phone phone) {
+				this.phone = phone;
+		}
+}
+```
+
+```java
+public class PhoneStoreOwner {
+		private PhoneStore phoneStore = new PhoneStore(new Galaxy());
+		
+		public PhoneStoreOwner() {
+				phoneStore = new PhoneStore(new IPhone());
+		}
+}
+```
+
+## setter 주입
+setter라 불리는 필드의 값을 변경하는 수정자 메서드를 통해서 의존성을 주입하는 방법입니다.
+**선택, 변경** 가능성이 있는 의존성에 사용되며, 자바빈 프로퍼티 규약(getter/setter)의 수정자 메서드 방식을 사용하는 방법입니다.
+
+```java
+public class PhoenStore {
+		private Phone phone = new Galaxy();
+		
+		public void setPhone(Phone phone) {
+				this.phone = phone;
+		}
+}
+```
+
+```java
+public class PhoneStoreOwner {
+		private PhoneStore phoneStore = new PhoneStore();
+		
+		public void changePhone() {
+				phone.setPhone(new IPhone());
+		}
+}
+```
+
+## 필드 주입
+```java
+public class PhoenStore {
+		@Autowired
+		private Phone phone;
+}
+```
