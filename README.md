@@ -102,3 +102,115 @@ public class PhoenStore {
 		private Phone phone;
 }
 ```
+
+# PSA(Portable Service Abstraction)
+환경의 변화와 관계없이 일관된 방식의 기술로의 접근 환경을 제공하는 추상화 구조를 말합니다. 
+즉 잘 만든 인터페이스를 의미하는데 PSA가 적용된 코드라면 코드를 수정하지 않고 다른 기술로 바꿀 수 있도록 확장성이 좋고, 기술에 특화되어 있지 않습니다.
+
+## 스프링 웹 MVC
+### 일반적인 서블릿
+```java
+public class CreateServlet extends HttpServlet {
+		// GET
+		@Override
+		protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+				super.doGet(request, response);
+		}
+		
+		//POST
+		@Override
+		protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+				super.doPost(request, response);
+		}
+}
+```
+
+### Spring Web MVC
+```java
+@Controller
+public class Controller {
+
+		@GetMapping
+		public String createForm(Map<String, Object> model) {
+				return VIEWS_CREATE_OR_UPDATE_FORM;
+		}
+		
+		@PostMapping
+		public String processCreateForm(@Valid Data data, BindingResult result) {
+				if (result.hasError()) {
+						return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+				}
+				return "redirect:/";
+		}
+}
+```
+
+## 스프링 트랜잭션
+Low Level로 트랜잭션을 처리하는 코드를 살펴봅시다.
+
+```java
+public class TransactionExample {
+
+		private static final String SQL_INSERT = "INSERT INTO EMPLOYEE (NAME, SALARY, CREATED_DATE) VALUES (?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE EMPLOYEE SET SALARY=? WHERE NAME=?";
+    private static final String SQL_TABLE_CREATE = "CREATE TABLE EMPLOYEE"
+            + "("
+            + " ID serial,"
+            + " NAME varchar(100) NOT NULL,"
+            + " SALARY numeric(15, 2) NOT NULL,"
+            + " CREATED_DATE timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,"
+            + " PRIMARY KEY (ID)"
+            + ")";
+    private static final String SQL_TABLE_DROP = "DROP TABLE EMPLOYEE";
+
+    public static void main(String[] args) {
+        try (Connection conn = DriverManager.getConnection(
+                "jdbc:postgresql://127.0.0.1:5432/test", "postgres", "password");
+             Statement statement = conn.createStatement();
+             PreparedStatement psInsert = conn.prepareStatement(SQL_INSERT);
+             PreparedStatement psUpdate = conn.prepareStatement(SQL_UPDATE)) {
+
+            statement.execute(SQL_TABLE_DROP);
+            statement.execute(SQL_TABLE_CREATE);
+
+            // Run list of insert commands
+            psInsert.setString(1, "mkyong");
+            psInsert.setBigDecimal(2, new BigDecimal(10));
+            psInsert.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            psInsert.execute();
+
+            psInsert.setString(1, "kungfu");
+            psInsert.setBigDecimal(2, new BigDecimal(20));
+            psInsert.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            psInsert.execute();
+
+            // Run list of update commands
+
+            // below line caused error, test transaction
+            // org.postgresql.util.PSQLException: No value specified for parameter 1.
+            psUpdate.setBigDecimal(2, new BigDecimal(999.99));
+            
+			//psUpdate.setBigDecimal(1, new BigDecimal(999.99));
+            psUpdate.setString(2, "mkyong");
+            psUpdate.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+이 코드를 단순하게 `@Transactional`을 사용해서 트랜잭션을 처리할 수 있습니다. 이 또한 PSA로써 다양한 기술 스택으로 구현체를 바꿀 수 있습니다.
+예를 들어, JDBC를 사용하는 DatasourceTransactionManager, JPA를 사용하는 JpaTransactionManager,
+Hibernate를 사용하는 HibernateTransactionManager를 유연하게 바꿔서 사용할 수 있습니다.
+
+즉,기존 코드는 변경하지 않은 채로 트랜잭션을 실제로 처리하는 구현체를 사용 기술에 따라 바꿀 수 있는 것입니다.
+
+## 스프링 캐시
+- @Cacheable, @CacheEvict ..
+- Cache도 마찬가지로 JCacheManager, ConcurrentMapCacheManager, EhCacheCacheManager와 같은 여러가지 구현체를 사용할 수 있습니다.
+
+스프링은 이렇게 특정 기술에 직접적 영향을 받지 않게끔 객체를 POJO 기반으로 한번씩 더 추상화한 Layer를 갖고 있으며,
+이를통해 일관성있는 Servic Abstraction(서비스 추상화)를 만들어 냅니다.
+덕분에 코드는 더 견고해지고 기술이 바뀌어도 유연하게 대처할 수 있게 됩니다.
