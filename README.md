@@ -1,10 +1,6 @@
 # spring-tutorial-19th
 CEOS 19th BE Study - Spring Tutorial
 
-### 5️⃣ **단위 테스트와 통합 테스트 탐구**
-
-- 단위 테스트와 통합 테스트의 의미를 알아봅시다!
-
 ## Spring 은 무엇일까?
 스프링은 자바를 사용하여 어플리케이션을 만들 때, 더 빠르고, 쉽고, 안전하게 만들 수 있도록 도와주는 프레임워크이다.
 
@@ -432,6 +428,29 @@ public class Apple {
 
     또한 `@ComponentScan`은 스프링 부트에서는 `@SpringBootApplication` 어노테이션을 통해 수행된다.
 
+## 단위 테스트와 통합 테스트
+위키백과에 따르면 단위 테스트와 통합 테스트의 정의는 아래와 같다.
+
+### 단위 테스트
+```
+컴퓨터 프로그래밍에서 소스 코드의 특정 모듈이 의도된 대로 정확히 작동하는지 검증하는 절차다.   
+즉, 모든 함수와 메소드에 대한 테스트 케이스(Test case)를 작성하는 절차를 말한다.
+```
+
+각각의 코드 조각이 여러 상황에서 그 자체만으로 잘 동작하는지 테스트 하는 것을 의미한다.   
+스프링으로 본다면, Repository, Service와 같은 각각의 로직이 잘 작동하는지 테스트 하는 것과 같다.   
+이렇게 작은 단위를 테스트할 때는 실제 스프링 실행 환경과 다르므로, 이를 유사하게 흉내낸 MVC 목업을 올려서 테스트한다.
+
+### 통합 테스트
+```
+ 단위 테스트가 끝난 소프트웨어를 결합해 가며 시험 하는 방법이다.
+ 단위 테스트가 끝난 모듈들을 좀 더 큰 단위의 집합으로 통합 구성한 후, 통합 테스트 계획에 따라서 테스트를 수행한다.
+```
+
+각각의 단위 테스트를 통과한 코드를 모아서 좀 더 복잡하고 큰 규모의 형태로 구성하고, 그 상태에서 테스트를 수행하는 것을 의미한다고 이해하였다.   
+스프링으로 본다면, 테스트가 끝난 Repository, Service 로직을 토대로, 실제 스프링 부트를 실행시킨 것과 동일한 환경에서 스프링 컨테이너를 올린 뒤 테스트 한다.    
+따라서 통합 테스트는 단위 테스트보다 테스트에 필요한 시간이 더 길다.
+
 ## 참고자료
 https://spring.io/why-spring   
 https://docs.spring.io/spring-framework/reference/core/beans/introduction.html   
@@ -440,4 +459,6 @@ https://youtu.be/hjDSKhyYK14?si=EWpV-_ZJ4q9wcVaX
 https://sabarada.tistory.com/127    
 https://drcode-devblog.tistory.com/334   
 https://dev-coco.tistory.com/170   
-https://www.nextree.co.kr/p5864/
+https://www.nextree.co.kr/p5864/   
+https://ko.wikipedia.org/wiki/%EC%9C%A0%EB%8B%9B_%ED%85%8C%EC%8A%A4%ED%8A%B8   
+https://velog.io/@calaf/SpringBoot-Controller-%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%86%B5%ED%95%A9%ED%85%8C%EC%8A%A4%ED%8A%B8
