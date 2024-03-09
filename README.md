@@ -246,3 +246,32 @@ public class TimeTraceAop {
 		}
 }
 ```
+
+# Spring Bean
+스프링 IoC 컨테이너가 관리하는 자바 객체를 말합니다.
+
+```java
+public class PhoneStoreTest {
+		@Autowired
+		ApplicationContext applicationContext;
+		
+		@Test
+		void 빈과_일반_객체의_차이() {
+				PhoneStore phoneStore = new PhoneStore(new IPhone());
+				
+				PhoneStore bean = applicationContext(PhoneStore.class);
+				
+				assertThat(bean).isNotNull();
+		}
+}
+```
+
+자바의 객체와 스프링 빈의 가장 큰 차이점은 `applicationContext`가 알고 있는 객체인지 여부입니다.
+
+## 스프링 빈 등록하는 방법
+- @ComponentScan: @Component 애노테이션이 붙은 모든 클래스를 찾아서 스프링 빈으로 등록
+- 직접 XML이나 자바 설정 파일에 등록
+
+## 스프링 빈의 라이프 사이클
+- 객체 생성 → 의존성 주입
+- 스프링 IoC 컨테이너 생성 → 스프링 빈 생성 → 의존관계 주입 → 초기화 콜백 메소드 호출 → 사용 → 소멸 전 콜백 메소드 호출 → 스프링 종료
