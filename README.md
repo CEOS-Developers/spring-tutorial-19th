@@ -366,3 +366,8 @@ public class AppConfig {
     - 직접 지정할 수도 있습니다.
 - `@SpringBootApplication`에 기본적으로 @ComponentScan이 들어있어 프로젝트 시작 루트 위치부터 탐색해나갑니다.
 - 기본적으로 탐색할 패키지의 시작 위치를 지정할 수 있고, 컴포넌트 스캔 대상의 추가 및 제외 대상을 지정할 수 있습니다.
+
+# References
+- [Intro to Inversion of Control and Dependency Injection with Spring](https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring)
+- [Framework vs Library: Full Comparison](https://www.interviewbit.com/blog/framework-vs-library/)
+- [의존관계 주입(Dependency Injection) 쉽게 이해하기](https://tecoble.techcourse.co.kr/post/2021-04-27-dependency-injection/)
