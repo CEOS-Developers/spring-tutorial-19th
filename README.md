@@ -87,6 +87,9 @@ IoC(Inversion of Control)
 - JoinPoint : Advice를 실행하고자 하는 위치. Spring AOP에서 모든 메서드는 JoinPoint가 될 수 있음.
 - Target : Advice가 적용되는 기존 메서드, 클래스 등  
 
+<img width="596" alt="Screenshot 2024-03-08 at 5 53 05 PM" src="https://github.com/parking0/TeenTalk_Server/assets/67892502/7c4c8d75-768c-4858-924a-34f210a4eeb7">
+
+
 * * *
 ### 1.4) OOP
 OOP(Object Oriented Programming)
@@ -101,6 +104,8 @@ PSA (Portable Service Abstraction)
 - JDBC Driver의 종류를 비즈니스 로직의 수정 없이 언제든지 변경할 수 있는 것을 의미함. 즉, MySQL Driver 를 사용하다가 Oracle Driver로 변경해도 프로젝트의 비즈니스 로직에 변화가 없음.
 - 모든 JDBC Driver 는 공통적인 인터페이스를 가지고 있기 때문에 프로젝트에 영향이 없음.
 - 서비스를 추상화함으로써 개발자가 실제 구현부를 몰라도 해당 기능을 사용할 수 있음. 즉, 추상화 계층인 인터페이스 API의 정보를 활용해 해당 서비스의 모든 기능을 이용함.
+
+<img width="676" alt="Screenshot 2024-03-08 at 6 05 23 PM" src="https://github.com/parking0/TeenTalk_Server/assets/67892502/726384d6-8be2-4347-8172-2102187362b3">
 
 
 * * *
@@ -256,6 +261,8 @@ public class SpringConfig {
 - 각각의 시스템들이 서로 어떻게 상호작용하고 제대로 작동하는지 테스트
 - 두 개의 다른 분리된 시스템끼리 잘 통신하고 있는지 증명하고 싶을 때 
 - ex) 앱과 DB가 올바르게 상호작용하는지 테스트
+
+<img width="537" alt="Screenshot 2024-03-09 at 6 06 39 PM" src="https://github.com/parking0/TeenTalk_Server/assets/67892502/1e98158d-2d14-48bf-b44c-954e460554cc">
 
 ### 4.3) 테스트 방법
 #### 라이브러리
