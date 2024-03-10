@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/ceos19
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true  # H2 Console을 사용할지 여부 (H2 Console은 H2 Database를 UI로 제공해주는 기능)
+      path: /h2-console  # H2 Console의 Path
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 1000
+
+logging:
+  level:
+    org.hibernate.SQL: debug
