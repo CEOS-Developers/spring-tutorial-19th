@@ -13,7 +13,7 @@
     - setter 주입
     - field 주입
     
-- 예제코드1 (contructor 주입)
+- 예제코드1 (contructor 주입)  
 ```java
 public class ApplepieRecipe{
     Apple apple;
@@ -47,7 +47,7 @@ Apple apple = new RedApple();
 ApplepieRecipe applepierecipe = new ApplepieRecipe(apple); //생성자 주입
 ```
 
-- 예제코드2 (setter 주입)
+- 예제코드2 (setter 주입)  
 아래와 같이 작성하면 setter를 통해 외부에서 원하는 클래스로 결정함으로써 의존성을 주입할 수 있다. 
 ```java
 public class ApplepieRecipe{
@@ -63,7 +63,7 @@ Apple apple = new RedApple; //여기서 원하는 apple 결정 가능
 applepierecipe.setApple(apple); //수정자 주입
 ```
 
-- 예제코드3 (field 주입)
+- 예제코드3 (field 주입)  
 Spring에서 @Autowired이라는 어노테이션을 통해 field 주입 방식으로 DI 구현이 가능하다.
 @Autowired는 해당 어노테이션이 붙은 field에 Bean 객체를 매핑하여 자동으로 의존성을 주입해주는 역할을 한다.(단, final로 선언된 field에는 @Autowired 사용이 불가하다) 
 ```java
