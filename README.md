@@ -107,7 +107,7 @@ public class GreenApple implements Apple {
             - @AfterThrowing: target의 메소드 실행 후 예외 발생시 '횡단 관심사' 적용
             - @Around: target의 메소드 실행 전/후, 예외 발생 시점 등 다양한 시점에서 '횡단 관심사' 적용 -> 주로 사용됨!
             
-- 예시코드
+- 예시코드  
 아래는 '핵심 관심사' 로직을 구현한 코드이다.
 ```java
 public interface HelloWorld {
@@ -186,7 +186,7 @@ World!
     - 설정 정보에 초기화 메소드, 종료 메소드 지정
     - @PostConstruct, @PreDestroy 어노테이션 지원
 
-- 예제코드1 (인터페이스)
+- 예제코드1 (인터페이스)  
 InitializingBean, DisposableBean 인터페이스를 사용하는 초기화 및 종료 방법은 스프링 초창기에 나온 방법들이기 때문에 지금은 거의 사용하지 않는다.
 ```java
 @Component
@@ -204,7 +204,7 @@ public class TestComponent implements InitializingBean, DisposableBean {
 }
 ```
 
-- 예제코드2 (설정 정보에 초기화 메소드, 종료 메소드 지정)
+- 예제코드2 (설정 정보에 초기화 메소드, 종료 메소드 지정)  
 메소드명을 자유롭게 부여 가능하고, 설정 정보를 사용하기 때문에 코드를 커스터마이징 할 수 없는 외부라이브러리에서도 적용 가능하다는 장점이 있다. 반면, Bean 지정시 initMethod와 destoryMethod를 직접 지정해야 하기에 번거롭다는 단점도 있다.
 ```java
 public class ExampleBean {     public void initialize() throws Exception {        
@@ -223,7 +223,7 @@ class LifeCycleConfig {     
 }
 ```
 
-- 예제코드3 (@PostConstruct, @PreDestory 어노테이션)
+- 예제코드3 (@PostConstruct, @PreDestory 어노테이션)  
 어노테이션만 붙이면 되므로 매우 편리하고, 최신 Spring에서 가장 많이 사용되는 방법이다. 유일한 단점은 외부 라이브러리에는 적용하지 못한다는 것이다. 외부 라이브러리를 초기화하거나 종료해야 하면 @Bean의 기능을 사용하면 된다.
 ```java
 @Component
@@ -381,10 +381,10 @@ void test() {
 ```
 
 ## Mockito를 사용한 단위 테스트
-- Mockito란? 개발자가 동작을 직접적으로 제어하도록 하는 더미 객체를 지원하는 테스트 프레임워크
+- Mockito란?  개발자가 동작을 직접적으로 제어하도록 하는 더미 객체를 지원하는 테스트 프레임워크
 - 여러 객체 간 의존성이 존재하는 Spring에서 Mockito를 이용하여 의존성을 단절시킨 뒤 단위 테스트를 실행하는 것을 용이하게 해준다.
 
-- 예시코드
+- 예시코드  
 아래는 Controller 계층을 단위 테스트하기 위해 작성된 코드이다.  
 Controller와 의존 관계에 있는 객체는 MemberService와 MemberMapper이다.  
 Controller 테스트를 위해 필요한 HTTP 호출은 @WebMvcTest 어노테이션으로 해결 가능하다.  
