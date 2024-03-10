@@ -367,6 +367,15 @@ public class AppConfig {
 - `@SpringBootApplication`에 기본적으로 @ComponentScan이 들어있어 프로젝트 시작 루트 위치부터 탐색해나갑니다.
 - 기본적으로 탐색할 패키지의 시작 위치를 지정할 수 있고, 컴포넌트 스캔 대상의 추가 및 제외 대상을 지정할 수 있습니다.
 
+# 테스트
+## 단위 테스트
+- 외부 의존성이 수반되지 않는 순수 비즈니스 로직 테스트
+- 전체 코드 중 작은 부분(메서드)을 테스트하는 것
+
+## 통합 테스트
+- 외부 의존성을 수반하는 테스트
+- 각각의 시스템들이 서로 어떻게 상호작용하고 제대로 작동하는지 테스트하는 것
+
 # References
 - [Intro to Inversion of Control and Dependency Injection with Spring](https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring)
 - [Framework vs Library: Full Comparison](https://www.interviewbit.com/blog/framework-vs-library/)
