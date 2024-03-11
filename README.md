@@ -6,24 +6,24 @@ CEOS 19th BE Study - Spring Tutorial
 IoC는 디자인 패턴이 아니라 원칙입니다. IoC는 기본적으로 프레임워크를 정의하는 특성입니다.
 
 ```java
-public class PhoenStore {
-		private Phone phone;
-		
-		public PhoneStore() {
-				this.phone = new Galaxy();
-		}
+public class PhoneStore {
+    private Phone phone;
+
+    public PhoneStore() {
+        this.phone = new Galaxy();
+    }
 }
 ```
 
 `PhoneStore`은 직접 객체를 생성하여 코드를 제어합니다.
 
 ```java
-public class PhoenStore {
-		private Phone phone;
+public class PhoneStore {
+    private Phone phone;
 		
-		public PhoneStore(Phone phone) {
-				this.phone = phone;
-		}
+    public PhoneStore(Phone phone) {
+        this.phone = phone;
+    }
 }
 ```
 
@@ -52,22 +52,22 @@ DI는 의존성 주입이라 하고, IoC를 구현하는 데 사용할 수 있�
 # DI 방법
 ## 생성자 주입
 ```java
-public class PhoenStore {
-		private Phone phone;
+public class PhoneStore {
+    private Phone phone;
 		
-		public PhoneStore(Phone phone) {
-				this.phone = phone;
-		}
+    public PhoneStore(Phone phone) {
+        this.phone = phone;
+    }
 }
 ```
 
 ```java
 public class PhoneStoreOwner {
-		private PhoneStore phoneStore = new PhoneStore(new Galaxy());
-		
-		public PhoneStoreOwner() {
-				phoneStore = new PhoneStore(new IPhone());
-		}
+    private PhoneStore phoneStore = new PhoneStore(new Galaxy());
+
+    public PhoneStoreOwner() {
+        phoneStore = new PhoneStore(new IPhone());
+    }
 }
 ```
 
@@ -76,30 +76,30 @@ setter라 불리는 필드의 값을 변경하는 수정자 메서드를 통해�
 **선택, 변경** 가능성이 있는 의존성에 사용되며, 자바빈 프로퍼티 규약(getter/setter)의 수정자 메서드 방식을 사용하는 방법입니다.
 
 ```java
-public class PhoenStore {
-		private Phone phone = new Galaxy();
+public class PhoneStore {
+    private Phone phone = new Galaxy();
 		
-		public void setPhone(Phone phone) {
-				this.phone = phone;
-		}
+    public void setPhone(Phone phone) {
+        this.phone = phone;
+    }
 }
 ```
 
 ```java
 public class PhoneStoreOwner {
-		private PhoneStore phoneStore = new PhoneStore();
+    private PhoneStore phoneStore = new PhoneStore();
 		
-		public void changePhone() {
-				phone.setPhone(new IPhone());
-		}
+    public void changePhone() {
+        phone.setPhone(new IPhone());
+    }
 }
 ```
 
 ## 필드 주입
 ```java
-public class PhoenStore {
-		@Autowired
-		private Phone phone;
+public class PhoneStore { 
+    @Autowired
+    private Phone phone;
 }
 ```
 
@@ -111,17 +111,17 @@ public class PhoenStore {
 ### 일반적인 서블릿
 ```java
 public class CreateServlet extends HttpServlet {
-		// GET
-		@Override
-		protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-				super.doGet(request, response);
-		}
-		
-		//POST
-		@Override
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-				super.doPost(request, response);
-		}
+    // GET
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        super.doGet(request, response);
+    }
+
+    //POST
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        super.doPost(request, response);
+    }
 }
 ```
 
@@ -130,18 +130,18 @@ public class CreateServlet extends HttpServlet {
 @Controller
 public class Controller {
 
-		@GetMapping
-		public String createForm(Map<String, Object> model) {
-				return VIEWS_CREATE_OR_UPDATE_FORM;
-		}
-		
-		@PostMapping
-		public String processCreateForm(@Valid Data data, BindingResult result) {
-				if (result.hasError()) {
-						return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
-				}
-				return "redirect:/";
-		}
+    @GetMapping
+    public String createForm(Map<String, Object> model) {
+        return VIEWS_CREATE_OR_UPDATE_FORM;
+    }
+    
+    @PostMapping
+    public String processCreateForm(@Valid Data data, BindingResult result) {
+        if (result.hasError()) {
+            return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+        }
+        return "redirect:/";
+    }
 }
 ```
 
@@ -151,7 +151,7 @@ Low Level로 트랜잭션을 처리하는 코드를 살펴봅시다.
 ```java
 public class TransactionExample {
 
-		private static final String SQL_INSERT = "INSERT INTO EMPLOYEE (NAME, SALARY, CREATED_DATE) VALUES (?,?,?)";
+    private static final String SQL_INSERT = "INSERT INTO EMPLOYEE (NAME, SALARY, CREATED_DATE) VALUES (?,?,?)";
     private static final String SQL_UPDATE = "UPDATE EMPLOYEE SET SALARY=? WHERE NAME=?";
     private static final String SQL_TABLE_CREATE = "CREATE TABLE EMPLOYEE"
             + "("
@@ -232,18 +232,18 @@ AOP란 관점 지향 프로그래밍이라고도 부릅니다.
 @Component
 @Aspect
 public class TimeTraceAop {
-		@Around("execution(* hello.hellospring..*(..))")
+    @Around("execution(* hello.hellospring..*(..))")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
-		    long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         System.out.println("START: " + joinPoint.toString());
         try {
-		        return joinPoint.proceed();
-		    } finally {
-				    long finish = System.currentTimeMillis();
-				    long timeMs = finish - start;
-				    System.out.println("END: " + joinPoint.toString()+ " " + timeMs + "ms");
-				}
-		}
+            return joinPoint.proceed();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("END: " + joinPoint.toString() + " " + timeMs + "ms");
+        }
+    }
 }
 ```
 
@@ -252,17 +252,17 @@ public class TimeTraceAop {
 
 ```java
 public class PhoneStoreTest {
-		@Autowired
-		ApplicationContext applicationContext;
-		
-		@Test
-		void 빈과_일반_객체의_차이() {
-				PhoneStore phoneStore = new PhoneStore(new IPhone());
-				
-				PhoneStore bean = applicationContext(PhoneStore.class);
-				
-				assertThat(bean).isNotNull();
-		}
+    @Autowired
+    ApplicationContext applicationContext;
+    
+    @Test
+    void 빈과_일반_객체의_차이() {
+        PhoneStore phoneStore = new PhoneStore(new IPhone());
+        
+        PhoneStore bean = applicationContext(PhoneStore.class);
+        
+        assertThat(bean).isNotNull();
+    }
 }
 ```
 
@@ -347,10 +347,10 @@ public @interface UserAnnotation {
 ```java
 @Configuration
 public class AppConfig {
-		@Bean
-		public MemberRepository memberRepository() {
-				return new MemoryMemberRepository();
-		}
+    @Bean
+    public MemberRepository memberRepository() {
+        return new MemoryMemberRepository();
+    }
 }
 ```
 
