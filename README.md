@@ -184,7 +184,8 @@ PSA(Portable Service Abstraction)는 환경의 변화와 관계없이 일관된 
 1. 개발자가 서비스의 내부 구현을 구체적으로 알지 못하더라도 사용이 가능.
 2. 해당 추상화 계층을 구현하는 또 다른 서비스로 언제든지 교체가 가능.
 
-![image-20240308155455495](/Users/min/Library/Application Support/typora-user-images/image-20240308155455495.png)
+![image](https://github.com/riceCakeSsamanKo/spring-tutorial-19th/assets/121627245/baedf9f4-215e-49c1-add8-9178e8c048a4)
+
 
 여러 비즈니스 로직들이 모두 **PlatformTransactionManager** 인터페이스를 공통으로 사용한다. 따라서 사용자의 경우에는 해당 인터페이스 하나만을 선언하여 이용하고 구현체를 변경이 가능하다.
 
@@ -201,10 +202,10 @@ PSA(Portable Service Abstraction)는 환경의 변화와 관계없이 일관된 
 ~~~java
 public class SpringConfig{
 
-	@Bean  // 1. 외부 라이브러리 등록
-	public ObjectMapper objectMapper(){
-		return new ObjectMapper;
-	}
+  @Bean  // 1. 외부 라이브러리 등록
+  public ObjectMapper objectMapper(){
+    return new ObjectMapper;
+  }
 
   @Bean  // 2. 내부 클래스 등록
   public MemberRepository memberRepository(){
