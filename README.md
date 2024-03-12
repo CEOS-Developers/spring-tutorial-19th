@@ -156,12 +156,12 @@ void afterPropertiesSet() throws Exception;
     System.out.println("Method customInit() invoked...");
     }
 
-@PreDestroy
-public void customDestroy()
-{
-System.out.println("Method customDestroy() invoked...");
-}
-}
+    @PreDestroy
+    public void customDestroy()
+        {
+            System.out.println("Method customDestroy() invoked...");
+        }
+    }
 
 # 어노테이션
 ## @Autowired
