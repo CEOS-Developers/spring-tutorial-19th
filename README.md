@@ -93,18 +93,18 @@ void afterPropertiesSet() throws Exception;
     {
     //Other bean attributes and methods
 
-@Override
-public void afterPropertiesSet() throws Exception
-{
-//Bean initialization code
-}
-
-@Override
-public void destroy() throws Exception
-{
-//Bean destruction code
-}
-}
+    @Override
+    public void afterPropertiesSet() throws Exception
+    {
+    //Bean initialization code
+    }
+    
+    @Override
+    public void destroy() throws Exception
+    {
+    //Bean destruction code
+    }
+    }
 단점
 : 해당 인터페이스는 스프링 전용 인터페이스로 해당 코드가 인터페이스에 의존한다.
 : 초기화, 소멸 메소드를 오버라이드 하기 때문에 메소드명을 변경할 수 없다.
