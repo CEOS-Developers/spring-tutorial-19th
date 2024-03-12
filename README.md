@@ -115,7 +115,6 @@ void afterPropertiesSet() throws Exception;
 ## 2. 설정 정보에 사용자 정의 초기화 메서드, 종료 메서드 지정
 위 같은 인터페이스를 구현하지 않고 @Bean 어노테이션에 initMethod, destroyMethod 속성을 사용하여 초기화, 소멸 메서드를 각각 지정할 수 있습니다.
 
-위 같은 인터페이스를 구현하지 않고 @Bean 어노테이션에 initMethod, destroyMethod 속성을 사용하여 초기화, 소멸 메서드를 각각 지정할 수 있습니다.
 
     public class ExampleBean {
     public void init() throws Exception {
