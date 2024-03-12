@@ -60,6 +60,7 @@ Spring Container는 이런 빈 객체의 생명주기를 컨테이너의 생명�
 : 콜백함수를 부를 때 사용되는 용어이며 콜백함수를 등록하면 특정 이벤트가 발생했을 때 해당 메소드가 호출됨
 : 즉, 조건에 따라 실행될 수도 실행되지 않을 수도 있는 개념
 
+
 ![img.png](img.png)
 
 1 ) 스프링 컨테이너 생성
@@ -71,6 +72,7 @@ Spring Container는 이런 빈 객체의 생명주기를 컨테이너의 생명�
 7 ) 스프링 종료
 스프링 빈은 생성과 의존성 주입이 끝난 후에 필요한 데이터를 사용할 준비가 됩니다. 또한 의존 관계 주입이 완료되는 시점과 종료되는 시점은 콜백 메서드를 통해 알 수 있다
 
+
 ![img_1.png](img_1.png)
 
 ## 1. InitializingBean, DisposableBean callback interfaces
@@ -78,7 +80,7 @@ Spring Container는 이런 빈 객체의 생명주기를 컨테이너의 생명�
 • InitializingBean
 : 빈에 필요한 모든 속성이 컨테이너에 설정된 후에 빈의 초기화 작업을 수행하도록 합니다.
 
-void afterPropertiesSet() throws Exception;
+    void afterPropertiesSet() throws Exception;
 : afterPropertiesSet() 메서드로 초기화를 지원합니다.
 : 의존 관계 주입이 끝난 후 초기화 진행
 
