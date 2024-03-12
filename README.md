@@ -170,7 +170,7 @@ void afterPropertiesSet() throws Exception;
     @Autowired private MemberServiceImpl member;
 // MemberServiceImpl는 @Service 어노테이션이 붙은 객체.
 
-## @Controller는 Web MVC 코드에 사용되는 어노테이션으로, 요청에 따른 처리방식을 @RequestMapping 어노테이션으로 정의한다. @RequestMapping는 @Controller 어노테이션이 붙은 클래스 안에서만 동작한다. 쉽게 말하면, 교통정리를 하는 클래스가 누구인지 알려주는 어노테이션이다.
+### @Controller는 Web MVC 코드에 사용되는 어노테이션으로, 요청에 따른 처리방식을 @RequestMapping 어노테이션으로 정의한다. @RequestMapping는 @Controller 어노테이션이 붙은 클래스 안에서만 동작한다. 쉽게 말하면, 교통정리를 하는 클래스가 누구인지 알려주는 어노테이션이다.
     @Controller
     public class HomeController {
     
