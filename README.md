@@ -12,9 +12,10 @@ DI란 의존성 주입이라 부르며, 객체를 직접 생성하는 게 아닌
 
 ## 생성자 주입 ( Constructor Injection )
 생성자 주입이란 생성자를 통해 의존관계를 주입하는 방법으로 생성자를 호출 시에 딱 한 번만 호출되는 것을 보장한다.
-@Controller
-public class TestController {
-private final TestService testService;
+
+    @Controller
+    public class TestController {
+    private final TestService testService;
 
     public TestController(TestService testService){
        this.testService = testService;
@@ -22,9 +23,10 @@ private final TestService testService;
 }
 ## 수정자 주입 ( Setter Injection)
 수정자 주입이란 영어 그대로 setter를 사용하여 의존관계를 주입하는 방법이다. 수정 가능성이 존재하는 의존관계일 때 사용하며 자바 빈 프로퍼티 규약의 setter메서드 방식을 사용한다. 수정자 주입의 경우 final 키워드 선언이 불가능하며, setter 메서드에 @Autowired를 붙여 사용한다.
-@Controller
-public class TestController {
-private TestService testService;
+    
+    @Controller
+    public class TestController {
+    private TestService testService;
 
     @Autowired
     public void setTestService(TestService testService){
@@ -35,10 +37,10 @@ private TestService testService;
 필드 주입이란 필드에 직접 의존관계를 주입하는 방법이다.이는 코드가 짧아지는 장점이 있지만 외부에서 변경이 불가능하고 테스트 코드를 작성하기 힘들다는 단점이 존재한다.또한 final 키워드 선언이 불가능해지고 의존관계를 파악하기 힘들어진다. 
 
     @Controller
-                                                                                                                                          public class TestController {
-                                                                                                                                          @Autowired
-                                                                                                                                          private TestService testService;
-                                                                                                                                          }
+      public class TestController {
+      @Autowired
+      private TestService testService;
+      }
 
 - 의존관계 설정이 되지 않으면 컨파일 타임에 알 수 있다.
 - 의존성 주입이 필요한 필드를 final 키워드로 선언 가능하다
