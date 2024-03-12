@@ -262,12 +262,13 @@ root-context.xml의 context:component-scan은 base package로 지정된 위치�
 - 장점 1 : 단위 테스트에서 발견하기 어려운 버그를 찾을 수 있다는 점이다
 - 단점 1 : 단위 테스트보다 더 많은 코드를 테스트하기 때문에 신뢰성이 떨어질 수 있다는 점
 - 단점 2: 어디서 에러가 발생했는지 확인하기 쉽지 않아 유지보수하기 힘들다는 점
-  @SpringBootTest
-  class SubwayApplicationTests {
-  @Test
-  void contextLoads() {
-  }
-  }
+- 
+      @SpringBootTest
+      class SubwayApplicationTests {
+      @Test
+      void contextLoads() {
+      }
+      }
 
 ### 참조
 https://dodokwon.tistory.com/57
