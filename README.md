@@ -176,8 +176,9 @@ Spring Container는 이런 빈 객체의 생명주기를 컨테이너의 생명�
 // MemberServiceImpl는 @Service 어노테이션이 붙은 객체.
 
  @Controller는 Web MVC 코드에 사용되는 어노테이션으로, 요청에 따른 처리방식을 @RequestMapping 어노테이션으로 정의한다. @RequestMapping는 @Controller 어노테이션이 붙은 클래스 안에서만 동작한다. 쉽게 말하면, 교통정리를 하는 클래스가 누구인지 알려주는 어노테이션이다.
-    @Controller
-    public class HomeController {
+ 
+        @Controller
+        public class HomeController {
     
         private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
         
@@ -264,7 +265,7 @@ root-context.xml의 context:component-scan은 base package로 지정된 위치�
 - 장점 1 : 단위 테스트에서 발견하기 어려운 버그를 찾을 수 있다는 점이다
 - 단점 1 : 단위 테스트보다 더 많은 코드를 테스트하기 때문에 신뢰성이 떨어질 수 있다는 점
 - 단점 2: 어디서 에러가 발생했는지 확인하기 쉽지 않아 유지보수하기 힘들다는 점
-- 
+  
       @SpringBootTest
       class SubwayApplicationTests {
       @Test
