@@ -36,7 +36,7 @@ public class PhoneStore {
 프레임워크를 사용하면 흐름이 프레임워크에 의해 제어됩니다. 프레임워크는 코드를 넣을 위치를 지시하지만 필요에 따라 코드를 호출합니다. 
 다시 말해 프레임워크에서 개발자가 작성한 코드를 호출하는 것이 프레임워크의 코드입니다. 이와 반대로 라이브러리를 사용하면 개발자가 프로그램 흐름을 제어할 수 있습니다.
 
-<img src=https://github.com/leeedohyun/library-app/assets/116694226/6a09016b-5099-4621-8225-3cbe06fc7140 width="500">
+<img src=https://github.com/CEOS-Developers/spring-tutorial-19th/assets/116694226/6fcd1b10-3705-4774-8314-3149440373de width="500">
 
 ## IoC의 장점
 - 작업 실행과 구현 분리
